@@ -19,7 +19,8 @@
     'data': [
         # 'security/cinema_security.xml', # Primer la definció dels grups de seguretat 
         # 'security/ir.model.access.csv', # Després les regles d'accés als models
-        'views/cinema_views.xml'
+        'views/cinema_views.xml',
+        'report/cinema_report_qweb'
     ],
     'demo': [],
     'installable': True,
