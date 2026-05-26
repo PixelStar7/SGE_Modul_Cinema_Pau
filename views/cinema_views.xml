@@ -154,7 +154,9 @@
                             <field name="synopsis" nolabel="1" placeholder="Escriu la sinopsi aqui..."></field>
 
                             <separator string="ACTORS/ACTRIUS"></separator>
-                            <field name="actor_ids" nolabel="1">
+                            <!-- Posem el readonly="0" i el options="{'no_create': True}" per a que es puguin afegir actors, -->
+                            <!-- però només els que ja existeixin -->
+                            <field name="actor_ids" nolabel="1" readonly="0" options="{'no_create': True}">
                                 <list>
                                     <field name="full_name" string="Nom Complet"></field>
                                     <field name="gender" string="Gènere"></field>

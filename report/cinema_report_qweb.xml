@@ -46,27 +46,37 @@
                         <p t-field="doc.synopsis"/>
 
                         <h3 class="mt-5">Actors/Actrius</h3>
-                        <!-- També diem "borderless" per a que no hi hagin linies -->
-                        <table class="table table-sm table-borderless mt-3">
-                            <thead style="border-bottom: 2px solid black;">
-                                <tr>
-                                    <th>Nom complet</th>
-                                    <th>Gènere</th>
-                                    <th>Nacionalitat</th>
-                                    <th>Data Naixement</th>
-                                    <th>Data Mort</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="doc.actor_ids" t-as="actor">
-                                    <td><span t-field="actor.full_name"/></td>
-                                    <td><span t-field="actor.gender"/></td>
-                                    <td><span t-field="actor.country_id.name"/></td>
-                                    <td><span t-field="actor.birth_date"/></td>
-                                    <td><span t-field="actor.death_date"/></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        
+                        <t t-if="doc.actor_ids">
+                            <!-- També posem "borderless" per a que no hi hagi linies a la taula -->
+                            <table class="table table-sm table-borderless mt-3">
+                                <thead style="border-bottom: 2px solid black;">
+                                    <tr>
+                                        <th>Nom complet</th>
+                                        <th>Gènere</th>
+                                        <th>Nacionalitat</th>
+                                        <th>Data Naixement</th>
+                                        <th>Data Mort</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.actor_ids" t-as="actor">
+                                        <td><span t-field="actor.full_name"/></td>
+                                        <td><span t-field="actor.gender"/></td>
+                                        <td><span t-field="actor.country_id.name"/></td>
+                                        <td><span t-field="actor.birth_date"/></td>
+                                        <td><span t-field="actor.death_date"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        
+                        <!-- Si la film no té actors, mostrarem un missatge -->
+                        <t t-else="">
+                            <p class="fst-italic text-muted mt-3">
+                                No hi ha actors ni actrius registrats per a aquest film.
+                            </p>
+                        </t>
                     </div>
                 </t>
             </t>
