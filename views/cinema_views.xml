@@ -41,16 +41,16 @@
                     <group>
 
                         <!-- Esquerra -->
-                        <group>
-                            <field name="last_name" string="Cognoms"></field>
-                            <field name="first_name" string="Nom"></field>
+                        <group col="4">
+                            <field name="last_name" string="Cognoms" colspan="4"></field>
+                            <field name="first_name" string="Nom" colspan="4"></field>
                             
                             <field name="birth_date" string="Data Naixement"></field>
                             <field name="death_date" string="Data Mort"></field>
                         </group>
 
                         <!-- Dreta -->
-                        <group>
+                        <group col="4"> <!-- [Label 1] [Camp 1] [Label 2] [Camp 2] -->
                             <field name="gender" string="Gènere"></field>
                             <field name="country_id" string="Nacionalitat"></field>
                             
