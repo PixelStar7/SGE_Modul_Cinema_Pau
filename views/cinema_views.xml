@@ -144,26 +144,26 @@
                             </group>
 
                             <!-- Dreta Dalt -->
-                             <group>
+                            <group>
                                 <field name="director_id" string="Director/a"></field>
                                 <field name="director_country_id" string="Nacionalitat"></field>
                                 <field name="year" string="Any"></field>
-                             </group>
+                            </group>
+
+                            <separator string="SINOPSI"></separator>
+                            <field name="synopsis" nolabel="1" placeholder="Escriu la sinopsi aqui..."></field>
+
+                            <separator string="ACTORS/ACTRIUS"></separator>
+                            <field name="actor_ids" nolabel="1">
+                                <list>
+                                    <field name="full_name" string="Nom Complet"></field>
+                                    <field name="gender" string="Gènere"></field>
+                                    <field name="country_id" string="Nacionalitat"></field>
+                                    <field name="birth_date" string="Data Naixement"></field>
+                                    <field name="death_date" string="Data Mort"></field>
+                                </list>
+                            </field>
                         </group>
-
-                        <separator string="SINOPSI"></separator>
-                        <field name="synopsis" nolabel="1" placeholder="Escriu la sinopsi aqui..."></field>
-
-                        <separator string="ACTORS/ACTRIUS"></separator>
-                        <field name="actor_ids" nolabel="1">
-                            <list>
-                                <field name="full_name" string="Nom Complet"></field>
-                                <field name="gender" string="Gènere"></field>
-                                <field name="country_id" string="Nacionalitat"></field>
-                                <field name="birth_date" string="Data Naixement"></field>
-                                <field name="death_date" string="Data Mort"></field>
-                            </list>
-                        </field>
 
                         <!-- Aqui posarem la imatge -->
                         <group colspan="1" style="width:25%">
