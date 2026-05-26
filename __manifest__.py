@@ -22,7 +22,9 @@
         'views/cinema_views.xml',
         'report/cinema_report_qweb.xml'
     ],
-    'demo': [],
+    'demo': [
+        'data/cinema_demo.xml'
+    ],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

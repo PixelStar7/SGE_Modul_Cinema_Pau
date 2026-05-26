@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <!-- Person ptb Demo -->
+         <record id="person_ptb" model="cinema.person">
+            <field name="first_name">Pau</field>
+            <field name="last_name">Tort Balsach</field>
+            <field name="isDirector">True</field>
+            <field name="isActor">True</field>
+            <field name="gender">male</field>
+            <field name="birth_date">2005-03-04</field>
+            <field name="country_id" ref="base.es"></field> <!-- Per a posar Espanya -->
+         </record>
+    
+        <!-- Film en la que ptb hagi actuat com a director i com a actor -->
+        <record id="film_mlo" model="cinema.film">
+            <field name="title">My Life Only</field>
+            <field name="year">2026</field>
+            <field name="duration">100</field>
+            <field name="director_id" ref="person_ptb"></field>
+            <field name="actor_ids" eval="[(4,ref('person_ptb'))]"></field>
+        </record>
+        
+    </data>
+        
+</odoo>
