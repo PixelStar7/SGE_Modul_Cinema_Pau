@@ -146,7 +146,7 @@
                             <!-- Dreta Dalt -->
                              <group>
                                 <field name="director_id" string="Director/a"></field>
-                                <field name="director_id.country_id" string="Nacionalitat"></field>
+                                <field name="director_country_id" string="Nacionalitat"></field>
                                 <field name="year" string="Any"></field>
                              </group>
                         </group>

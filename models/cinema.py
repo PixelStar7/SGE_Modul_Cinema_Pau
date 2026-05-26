@@ -94,6 +94,9 @@ class CinemaFilm(models.Model):
 
     director_id = fields.Many2one('cinema.person', string="Director", required=True)
 
+    # Camp related per obtenir la nacionalitat del director
+    director_country_id = fields.Many2one(related='director_id.country_id', string="Nacionalitat", readonly=True)
+
     # Relació Many2many (Films --> Persons)
     # Nom de la taula que relacionarà / nom de la taula a crear / nom dels camps - de la nova taula / nom de la relació
     # El nom de la taula serà el mateix que en l'altre relació a "Person", amb les ids canviades d'ordre.
