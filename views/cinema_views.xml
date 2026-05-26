@@ -45,11 +45,8 @@
                             <field name="last_name" string="Cognoms"></field> 
                             <field name="first_name" string="Nom"></field>
                             
-                            <!-- Grup per a tenir 2 camps en la mateixa linia -->
-                            <group colspan="2" col="4">
-                                <field name="birth_date" string="Data Naixement"></field>
-                                <field name="death_date" string="Data Mort"></field>
-                            </group>
+                            <field name="birth_date" string="Data Naixement"></field>
+                            <field name="death_date" string="Data Mort"></field>
                         </group>
 
                         <!-- Dreta -->
