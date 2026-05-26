@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Action report Film -->
+    <record id="action_report_film" model="ir.actions.report">
+        <field name="name">Fitxa del Film</field>
+        <field name="model">cinema.film</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cinema_pau.report_film_template</field>
+        <field name="report_file">cinema_pau.report_film_template</field>
+        <field name="model_id" ref="cinema_pau.model_cinema_film"/>
+        <field name="binding_model_id" ref="cinema_pau.model_cinema_film"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Template del report de Film -->
+    <template id="report_film_template">
+        <t t-call="web.html_container">
+            <!-- Per cada film... -->
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-family:sans-serif">
+                        <h2 class="text-center mb-4">FILM</h2>
+                        
+                        <!-- Per crear la taula amb les columnes i files que volem -->
+                        <div class="row mb-4">
+                            <div class="col-5">
+                                <p><strong>Film:</strong> <span t-field="doc.title"/></p>
+                                <p><strong>Durada:</strong> <span t-field="doc.duration"/></p>
+                                <p><strong>Tipus:</strong> <span t-field="doc.film_type"/></p>
+                                <p><strong>Web:</strong> <span t-field="doc.website"/></p>
+                            </div>
+                            
+                            <div class="col-4">
+                                <p><strong>Director/a:</strong> <span t-field="doc.director_id.full_name"/></p>
+                                <p><strong>Nacionalitat:</strong> <span t-field="doc.director_country_id.name"/></p>
+                                <p><strong>Any:</strong> <span t-field="doc.year"/></p>
+                            </div>
+                            
+                            <div class="col-3 text-end">
+                                <img t-if="doc.poster" t-att-src="image_data_uri(doc.poster)" style="max-height: 180px;"/>
+                            </div>
+                        </div>
+
+                        <h3 class="mt-4">Sinopsi</h3>
+                        <p t-field="doc.synopsis"/>
+
+                        <h3 class="mt-5">Actors/Actrius</h3>
+                        <!-- També diem "borderless" per a que no hi hagin linies -->
+                        <table class="table table-sm table-borderless mt-3">
+                            <thead style="border-bottom: 2px solid black;">
+                                <tr>
+                                    <th>Nom complet</th>
+                                    <th>Gènere</th>
+                                    <th>Nacionalitat</th>
+                                    <th>Data Naixement</th>
+                                    <th>Data Mort</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.actor_ids" t-as="actor">
+                                    <td><span t-field="actor.full_name"/></td>
+                                    <td><span t-field="actor.gender"/></td>
+                                    <td><span t-field="actor.country_id.name"/></td>
+                                    <td><span t-field="actor.birth_date"/></td>
+                                    <td><span t-field="actor.death_date"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
