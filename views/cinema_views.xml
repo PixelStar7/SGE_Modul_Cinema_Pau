@@ -1,4 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <odoo> 
- 
+
+    <!-- Estructura de navegació Superior -->
+    <menuitem name="Cinema" id="menu_root"/>
+
+    <menuitem name="Configuration" id="menu_configuration" parent="menu_root" sequence="99"/>
+    
+
+    <!-- GESTIÓ DE PERSON -->
+
+    <!-- Vista Llista de Person -->
+    <record model="ir.ui.view" id="cinema_person_list">
+        <field name="name">cinema.person.list</field>
+        <field name="model">cinema.person</field>
+        <field name="arch" type="xml">
+            <!-- decoration-danger: vermell // decoration-success: verd -->
+             <!-- El True no funciona perque si hi ha algo a dins no serà un booleà!!! -->
+            <list string="Persons" decoration-danger="death_date != False" decoration-success="death_date == False">
+                <field name="full_name" string="Nom complet"></field>
+                <field name="gender" string="Gènere"></field>
+                <field name="country_id" string="Nacionalitat"></field>
+                <field name="birth_date" string="Data Naixement"></field>
+                <field name="death_date" string="Data Mort"></field>
+                <field name="isDirector" string="Director/a?"></field>
+                <field name="isActor" string="Actor/Actriu?"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Acció de Person -->
+    <record model="ir.actions.act_window" id="cinema_person_action">
+        <field name="name">Person</field>
+        <field name="res_model">cinema.person</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Submenu de Person -->
+    <menuitem name="Person" id="menu_persons" parent="menu_configuration" action="cinema_person_action"/>
+
+
+    <!-- GESTIÓ DE FILM -->
+
+    <!-- Vista Llista de Film -->
+    <record model="ir.ui.view" id="cinema_film_list">
+        <field name="name">cinema.film.list</field>
+        <field name="model">cinema.film</field>
+        <field name="arch" type="xml">
+            <list string="Films">
+                <field name="title" string="Film"></field>
+                <field name="year" string="Any"></field>
+                <field name="director_id" string="Director/a"></field>
+                <field name="duration" string="Durada"></field>
+                <field name="film_type" string="Tipus"></field>
+                <field name="website" string="Web"></field>
+            </list>
+        </field>
+    </record>
+
+
+    <!-- Acció de Film -->
+    <record model="ir.actions.act_window" id="cinema_film_action">
+        <field name="name">Film</field>
+        <field name="res_model">cinema.film</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Submenu de Person -->
+    <menuitem name="Films" id="menu_films" parent="menu_root" action="cinema_film_action" sequence="10"/>
+
 </odoo> 
