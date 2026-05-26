@@ -41,21 +41,24 @@
                     <group>
 
                         <!-- Esquerra -->
-                        <group col="4"> <!-- [Label 1] [Camp 1] [Label 2] [Camp 2] -->
-                            <field name="last_name" string="Cognoms" colspan="4"></field> <!-- colspan="4", ocupa TOTA la fila -->
-                            <field name="first_name" string="Nom" colspan="4"></field>
+                        <group>
+                            <field name="last_name" string="Cognoms"></field> 
+                            <field name="first_name" string="Nom"></field>
                             
-                            <field name="birth_date" string="Data Naixement" colspan="2"></field>
-                            <field name="death_date" string="Data Mort" colspan="2"></field>
+                            <!-- Grup per a tenir 2 camps en la mateixa linia -->
+                            <group colspan="2" col="4">
+                                <field name="birth_date" string="Data Naixement"></field>
+                                <field name="death_date" string="Data Mort"></field>
+                            </group>
                         </group>
 
                         <!-- Dreta -->
                         <group col="4"> <!-- [Label 1] [Camp 1] [Label 2] [Camp 2] -->
-                            <field name="gender" string="Gènere" colspan="2"></field>
-                            <field name="country_id" string="Nacionalitat" colspan="2"></field>
+                            <field name="gender" string="Gènere"></field>
+                            <field name="country_id" string="Nacionalitat"></field>
                             
-                            <field name="isDirector" string="Director/a?" colspan="2"></field>
-                            <field name="isActor" string="Actor/Actriu?" colspan="2"></field>
+                            <field name="isDirector" string="Director/a?"></field>
+                            <field name="isActor" string="Actor/Actriu?"></field>
                         </group>
 
                     </group>
