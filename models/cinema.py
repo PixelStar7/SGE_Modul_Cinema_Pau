@@ -8,7 +8,8 @@ class CinemaPerson(models.Model):
     _name = 'cinema.person'
     _description = 'Person Management'
     _rec_name = 'full_name'
-    _order = 'full_name, birth_date desc'
+    # No podem posar un camp calculat al _order (full_name NO)!!!!
+    _order = 'last_name, first_name, birth_date desc'
 
     first_name = fields.Char("First Name", size=25, required=True)
     last_name = fields.Char("Last Name", size=45, required=True)
@@ -29,24 +30,49 @@ class CinemaPerson(models.Model):
     # Relació Many2many (Persons --> Films)
     # Nom de la taula que relacionarà / nom de la taula a crear / nom dels camps - de la nova taula / nom de la relació
     # El nom de la taula serà el mateix que en l'altre relació a "Film", amb les ids canviades d'ordre.
-    film_acting_ids = fields.Many2many('cinema.person', 'cinema_person_film_rel', 'person_id', 'film_id', string="Acted Films", readonly=True)
+    film_acting_ids = fields.Many2many('cinema.film', 'cinema_person_film_rel', 'person_id', 'film_id', string="Acted Films", readonly=True)
+    # El nom 'cinema_person_film_rel' és el mateix per les dues declaracions, per a que no creï dues taules!
+
 
     @api.depends('first_name', 'last_name')
     def _compute_full_name(self):
         for record in self:
             record.full_name = record.last_name +  ", " + record.first_name
 
-    # Quan es crea una Persona...
-    @api.model_create_multi
-    def create(self, values):
-        # Mirem els nous valors i comparem si ja n'hi ha algun
-        return
+    # Comprovar que no siguin dues persones amb el mateix nom-cognom-dataNaixement
+    @api.constrains('first_name', 'last_name', 'birth_date')
+    def _check_unique_person(self):
+        for record in self:
+            if record.first_name and record.last_name and record.birth_date:
+                # Busquem duplicats usant =ilike per fer-ho case insensitive
+                domain = [
+                    ('first_name', '=ilike', record.first_name),
+                    ('last_name', '=ilike', record.last_name),
+                    ('birth_date', '=', record.birth_date),
+                    ('id', '!=', record.id) # Evitem comparar amb si mateix en fer un write
+                ]
+                if self.env['cinema.person'].search_count(domain) > 0:
+                    raise ValidationError(_("There cannot be two persons with the same first-last name and birthdate."))
+
+    # Sobreescriptura del mètode d'esborrat (unlink)
+    def unlink(self):
+        for record in self:
+            # Comprovem si té elements relacionats als camps One2Many o Many2Many
+            if record.film_directed_ids or record.film_acting_ids:
+                raise ValidationError(_("You cannot delete a person who acts in/or directs a film!"))
+        return super().unlink()
+
 
 class CinemaFilm(models.Model):
     _name = 'cinema.film'
     _description = 'Film Management'
     _rec_name = 'title' # Aqui poso title al _rec_name
     _order = 'title, year desc'
+
+    # Restricció perquè no hi hagi dos films amb la mateixa pàgina web
+    _sql_constraints = [
+        ('unique_website', 'unique(website)', 'There cannot be two films with the same website.')
+    ]
 
     title = fields.Char("Title", size=60, required=True, translate=True)
     year = fields.Integer("Release Year", required=True)
@@ -68,16 +94,19 @@ class CinemaFilm(models.Model):
     # Nom de la taula que relacionarà / nom de la taula a crear / nom dels camps - de la nova taula / nom de la relació
     # El nom de la taula serà el mateix que en l'altre relació a "Person", amb les ids canviades d'ordre.
     actor_ids = fields.Many2many('cinema.person', 'cinema_person_film_rel', 'film_id', 'person_id', 'Actors', readonly=True)
+    # El nom 'cinema_person_film_rel' és el mateix per les dues declaracions, per a que no creï dues taules!
 
+    # Calcul del camp duration segons la duració del film
     @api.depends('duration')
     def _compute_film_type(self):
+        # >= i <= per complir "Entre 30 i 60 minuts"
         for record in self:
             if record.duration < 30:
-                record.film_type = "Curtmetratge"
-            elif record.duration > 30 and record.duration < 60:
-                record.film_type = "Migmetratge"
+                record.film_type = "Short Film"
+            elif record.duration >= 30 and record.duration <= 60:
+                record.film_type = "Medium-length Film"
             else:
-                record.film_type = "Llargmetratge"
+                record.film_type = "Feature Film"
 
     # Per a checks, s'usa constrains
     @api.constrains('year')
