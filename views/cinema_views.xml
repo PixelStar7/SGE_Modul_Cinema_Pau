@@ -15,7 +15,7 @@
         <field name="model">cinema.person</field>
         <field name="arch" type="xml">
             <!-- decoration-danger: vermell // decoration-success: verd -->
-             <!-- El True no funciona perque si hi ha algo a dins no serà un booleà!!! -->
+            <!-- El True no funciona perque si hi ha algo a dins no serà un booleà!!! -->
             <list string="Persons" decoration-danger="death_date != False" decoration-success="death_date == False">
                 <field name="full_name" string="Nom complet"></field>
                 <field name="gender" string="Gènere"></field>
@@ -26,6 +26,72 @@
                 <field name="isActor" string="Actor/Actriu?"></field>
             </list>
         </field>
+    </record>
+
+
+    <!-- Vista Formulari de Person -->
+    <record model="ir.ui.view" id="cinema_person_form">
+        <field name="name">cinema.person.form</field>
+        <field name="model">cinema.person</field>
+        <field name="arch" type="xml">
+            <form string="Persona">
+                <sheet>
+
+                    <!-- Part de dalt: Dos grups dins d'un grup -->
+                    <group>
+
+                        <!-- Esquerra -->
+                        <group>
+                            <field name="last_name" string="Cognoms"></field>
+                            <field name="first_name" string="Nom"></field>
+                            
+                            <field name="birth_date" string="Data Naixement" colspan="2"></field>
+                            <field name="death_date" string="Data Mort" colspan="2"></field>
+                        </group>
+
+                        <!-- Dreta -->
+                        <group>
+                            <field name="gender" string="Gènere" colspan="2"></field>
+                            <field name="country_id" string="Nacionalitat" colspan="2"></field>
+                            
+                            <field name="isDirector" string="Director/a?" colspan="2"></field>
+                            <field name="isActor" string="Actor/Actriu?" colspan="2"></field>
+                        </group>
+
+                    </group>
+
+                    <!-- Part de baix: Dos grups dins d'un grup -->
+                    <group>
+
+                        <!-- Esquerra -->
+                        <group invisible="isDirector == False">
+                            <separator string="FILMS DIRIGITS"></separator>
+                            <field name="film_directed_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="title" string="Títol"></field>
+                                    <field name="duration" string="Durada"></field>
+                                    <field name="website" string="Web"></field>
+                                </list>
+                            </field>
+                        </group>
+
+                        <!-- Dreta -->
+                        <group invisible="isActor == False">
+                            <separator string="FILMS COM ACTOR/ACTRIU"></separator>
+                            <field name="film_acting_ids" nolabel="1" readonly="1">
+                                <list>
+                                    <field name="title" string="Títol"></field>
+                                    <field name="duration" string="Durada"></field>
+                                    <field name="website" string="Web"></field>
+                                </list>
+                            </field>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+
     </record>
 
 
