@@ -1,1 +1,5 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink 
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+person_user,person.user,model_cinema_person,group_cinema_user,1,0,0,0
+film_user,film.user,model_cinema_film,group_cinema_user,1,0,0,0
+person_manager,person.manager,model_cinema_person,group_cinema_manager,1,1,1,1
+film_manager,film.manager,model_cinema_film,group_cinema_manager,1,1,1,1

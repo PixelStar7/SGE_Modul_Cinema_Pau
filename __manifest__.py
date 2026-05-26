@@ -17,8 +17,8 @@
     'website': 'http://www.infomila.info',
     'depends': ['base', 'board', 'mail'],
     'data': [
-        # 'security/cinema_security.xml', # Primer la definció dels grups de seguretat 
-        # 'security/ir.model.access.csv', # Després les regles d'accés als models
+        'security/cinema_security.xml', # Primer la definció dels grups de seguretat 
+        'security/ir.model.access.csv', # Després les regles d'accés als models
         'views/cinema_views.xml',
         'report/cinema_report_qweb.xml'
     ],
