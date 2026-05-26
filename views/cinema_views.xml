@@ -45,17 +45,17 @@
                             <field name="last_name" string="Cognoms"></field>
                             <field name="first_name" string="Nom"></field>
                             
-                            <field name="birth_date" string="Data Naixement" colspan="2"></field>
-                            <field name="death_date" string="Data Mort" colspan="2"></field>
+                            <field name="birth_date" string="Data Naixement"></field>
+                            <field name="death_date" string="Data Mort"></field>
                         </group>
 
                         <!-- Dreta -->
                         <group>
-                            <field name="gender" string="Gènere" colspan="2"></field>
-                            <field name="country_id" string="Nacionalitat" colspan="2"></field>
+                            <field name="gender" string="Gènere"></field>
+                            <field name="country_id" string="Nacionalitat"></field>
                             
-                            <field name="isDirector" string="Director/a?" colspan="2"></field>
-                            <field name="isActor" string="Actor/Actriu?" colspan="2"></field>
+                            <field name="isDirector" string="Director/a?"></field>
+                            <field name="isActor" string="Actor/Actriu?"></field>
                         </group>
 
                     </group>
