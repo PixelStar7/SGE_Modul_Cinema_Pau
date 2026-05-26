@@ -146,3 +146,23 @@ class CinemaFilm(models.Model):
 
         return films
 
+
+
+# CLASSES HERETADES
+
+class ResCountry(models.Model):
+    # _inherit fa que poguem afegir coses a una taula que ja existeix. NO crea una nova taula
+    _inherit = 'res.country'
+
+    # Creem el nou camp calculat
+    director_count = fields.Integer("Qtat. de directors de cinema", compute="_compute_director_count")
+
+    # I fem el càlcul
+    def _compute_director_count(self):
+        for country in self:
+            # Busquem quantes persones tenen aquest país i a més són directors
+            count = self.env['cinema.person'].search_count([
+                ('country_id', '=', country.id),
+                ('isDirector', '=', True)
+            ])
+            country.director_count = count

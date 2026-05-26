@@ -186,4 +186,21 @@
     <!-- Submenu de Person -->
     <menuitem name="Films" id="menu_films" parent="menu_root" action="cinema_film_action" sequence="10"/>
 
+
+
+    <!-- Vistes Heretades -->
+    <record model="ir.ui.view" id="view_country_form_inherit_cinema">
+        <field name="name">res.country.form.inherit.cinema</field>
+        <field name="model">res.country</field>
+        <!-- ref="base.view_country_form" es troba anant al formulari on hi posarem les coses, marieta, veure form, "ID Externa" -->
+        <field name="inherit_id" ref="base.view_country_form"></field>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='state_required']" position="after">
+                <field name="director_count"></field>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo> 
