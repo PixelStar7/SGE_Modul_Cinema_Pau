@@ -37,7 +37,11 @@ class CinemaPerson(models.Model):
     @api.depends('first_name', 'last_name')
     def _compute_full_name(self):
         for record in self:
-            record.full_name = record.last_name +  ", " + record.first_name
+            if record.last_name != False and record.first_name != False:
+                record.full_name = record.last_name +  ", " + record.first_name
+            else:
+                record.full_name = "New Person"
+
 
     # Comprovar que no siguin dues persones amb el mateix nom-cognom-dataNaixement
     @api.constrains('first_name', 'last_name', 'birth_date')
